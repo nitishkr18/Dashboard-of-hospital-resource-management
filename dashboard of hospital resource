@@ -1,0 +1,40 @@
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+st.title(" Hospital Resource Management Dashboard")
+st.text("Welcome to the Hospital Resource Monitoring System")
+
+
+st.header(" Patient Information")
+name = st.text_input("Enter Patient Name:")
+age = st.number_input("Enter Patient Age:")
+gender = st.selectbox("Select Gender:", ["Male", "Female", "Other"])
+department = st.selectbox("Department:", ["Cardiology", "Neurology", "Orthopedics", "Emergency", "General"])
+if st.button("Submit Patient Info"):
+    st.success("your form has been submitted")
+
+
+st.header(" Upload Medical Reports")
+file = st.file_uploader("Upload patient report (PDF, CSV, etc.)")
+if file:
+    st.write(" File Uploaded Successfully!")
+
+
+st.header(" Hospital Resources Overview")
+resources = {
+    "Resource": ["Beds", "Doctors", "Nurses", "Ventilators", "Medicines"],
+    "Available": [120, 40, 80, 15, 500]
+}
+
+
+st.subheader(" Bed Occupancy")
+labels = ["Occupied", "Available"]
+sizes = [80, 40]
+fig, ax = plt.subplots()
+ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+ax.axis("equal")
+st.pyplot(fig)
+
+st.success("Dashboard Ready ✅")
